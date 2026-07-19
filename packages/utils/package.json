@@ -1,0 +1,18 @@
+{
+  "name": "@archery/utils",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "scripts": {
+    "lint": "eslint \"src/**/*.ts\"",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@archery/types": "workspace:*"
+  },
+  "devDependencies": {
+    "@archery/config": "workspace:*",
+    "typescript": "5.4.5"
+  }
+}

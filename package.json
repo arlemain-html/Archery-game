@@ -1,0 +1,22 @@
+{
+  "name": "archery-dapp",
+  "private": true,
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test"
+  },
+  "devDependencies": {
+    "@types/jsdom": "^28.0.3",
+    "@types/node": "^20.12.12",
+    "jsdom": "^29.1.1",
+    "prettier": "latest",
+    "three": "^0.185.1",
+    "three-stdlib": "^2.36.1",
+    "turbo": "latest",
+    "typescript": "5.4.5"
+  },
+  "packageManager": "pnpm@9.0.0"
+}

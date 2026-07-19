@@ -1,0 +1,21 @@
+{
+  "name": "@archery/api-client",
+  "version": "0.0.0",
+  "private": true,
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "lint": "eslint \"src/**/*.ts\"",
+    "typecheck": "tsc --noEmit",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@archery/types": "workspace:*",
+    "@archery/utils": "workspace:*",
+    "axios": "latest"
+  },
+  "devDependencies": {
+    "@archery/config": "workspace:*",
+    "typescript": "5.4.5"
+  }
+}
