@@ -33,7 +33,7 @@ export function useTransaction() {
       updateTransaction(txId, { status: 'Waiting Confirmation' });
 
       // Wait for mining
-      // @ts-expect-error
+      // @ts-expect-error - wagmi config type mismatch
       const receipt = await waitForTransactionReceipt(config, { hash });
       
       if (receipt.status === 'success') {
