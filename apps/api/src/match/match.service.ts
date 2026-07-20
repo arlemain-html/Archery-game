@@ -54,6 +54,9 @@ export class MatchService {
     const player = match.players.find((p: any) => p.user_id === userId);
     if (!player) throw new BadRequestException('Player not in this match');
 
+    const ghostPlayer = match.players.find((p: any) => p.is_ghost);
+    const ghostScore = ghostPlayer?.score_achieved ?? 0;
+
     let isWin = score >= 25;
     let isDraw = false;
 

@@ -23,7 +23,7 @@ export class SeasonPassService {
     return {
       xp: user.xp,
       level: user.level,
-      claimedLevels: user.seasonPassClaims.map(claim => claim.level)
+      claimedLevels: user.seasonPassClaims.map((claim: any) => claim.level)
     };
   }
 
@@ -42,7 +42,7 @@ export class SeasonPassService {
       throw new BadRequestException('Not enough XP to claim this level');
     }
 
-    if (user.seasonPassClaims.some(c => c.level === level)) {
+    if (user.seasonPassClaims.some((c: any) => c.level === level)) {
       throw new BadRequestException('Level already claimed');
     }
 

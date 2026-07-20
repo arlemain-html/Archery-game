@@ -12,7 +12,7 @@ export class LeaderboardService {
       include: { user: { select: { username: true } } }
     });
 
-    return topProfiles.map((p, index) => {
+    return topProfiles.map((p: any, index: number) => {
       const matchesPlayed = p.matches_played || 0;
       const matchesWon = p.matches_won || 0;
       const winRate = matchesPlayed > 0 ? Math.round((matchesWon / matchesPlayed) * 100) : 0;
