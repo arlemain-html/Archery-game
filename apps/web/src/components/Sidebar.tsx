@@ -8,6 +8,8 @@ import { useAuthStore } from '../stores/auth.store';
 import { cn } from '../utils/cn';
 
 import Image from 'next/image';
+import { useDisconnect } from 'wagmi';
+import { useRouter } from 'next/navigation';
 
 const NAV_ITEMS = [
   { href: '/home', label: 'Dashboard', icon: Home },
@@ -21,8 +23,8 @@ const NAV_ITEMS = [
 export function Sidebar() {
   const pathname = usePathname();
   const logout = useAuthStore((state: any) => state.logout);
-  const { disconnect } = require('wagmi').useDisconnect();
-  const router = require('next/navigation').useRouter();
+  const { disconnect } = useDisconnect();
+  const router = useRouter();
 
   const handleLogout = () => {
     logout();

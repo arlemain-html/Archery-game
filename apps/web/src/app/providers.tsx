@@ -60,7 +60,7 @@ function AppInitializer({ children }: { children: ReactNode }) {
 
 export function Providers({ children }: { children: ReactNode }) {
   return (
-    // @ts-ignore Wagmi version mismatch
+    // @ts-expect-error Wagmi version mismatch
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
         <AuthProvider>
