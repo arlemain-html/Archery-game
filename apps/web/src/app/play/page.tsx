@@ -2,6 +2,8 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { useAuthStore } from '@/stores/auth.store';
+import { VirtualJoystick } from '@/components/VirtualJoystick';
 import { gameBridge } from '../../game/GameBridge';
 import { useGameStore } from '../../stores/game.store';
 import { useEquipmentStore } from '../../stores/equipment.store';
@@ -160,8 +162,14 @@ function PlayGame() {
   }, []);
 
   const handleExit = () => {
-    resetGame();
-    router.push('/');
+    gameBridge.current?.cleanup();
+    router.push('/home');
+  };
+
+  const handleJoystickMove = (x: number, y: number) => {
+    if (gameBridge.current?.gameEngine?.inputManager) {
+      gameBridge.current.gameEngine.inputManager.setJoystickDirection(x, y);
+    }
   };
 
   return (
@@ -198,38 +206,39 @@ function PlayGame() {
       </div>
 
       {/* HUD: Score */}
-      <div className="absolute top-6 left-6 flex flex-col items-start pointer-events-none">
-        <div className="bg-black/40 backdrop-blur-md px-6 py-4 rounded-xl border border-white/10 shadow-2xl">
-          <p className="text-blue-400 text-sm font-bold tracking-widest uppercase mb-1">Total Score</p>
-          <p className="text-white text-6xl font-black">{score}</p>
+      <div className="absolute top-4 left-4 md:top-6 md:left-6 flex flex-col items-start pointer-events-none">
+
+        <div className="bg-black/40 backdrop-blur-md px-4 py-2 md:px-6 md:py-4 rounded-xl border border-white/10 shadow-2xl">
+          <p className="text-blue-400 text-xs md:text-sm font-bold tracking-widest uppercase mb-1">Total Score</p>
+          <p className="text-white text-4xl md:text-6xl font-black">{score}</p>
         </div>
       </div>
 
       {/* HUD: Wind & Exit */}
-      <div className="absolute top-6 right-6 flex items-start gap-4 pointer-events-none">
-        <div className="bg-black/40 backdrop-blur-md px-5 py-3 rounded-xl flex items-center gap-4 border border-white/10 shadow-2xl">
+      <div className="absolute top-4 right-4 md:top-6 md:right-6 flex items-start gap-2 md:gap-4 pointer-events-none">
+        <div className="bg-black/40 backdrop-blur-md px-3 py-2 md:px-5 md:py-3 rounded-xl flex items-center gap-2 md:gap-4 border border-white/10 shadow-2xl">
           <div className="flex flex-col">
-            <span className="text-red-400 text-xs font-bold tracking-widest uppercase mb-1">Wind Force</span>
-            <span className="text-white text-3xl font-bold">{Math.abs(wind.x).toFixed(1)}</span>
+            <span className="text-red-400 text-[10px] md:text-xs font-bold tracking-widest uppercase mb-1">Wind Force</span>
+            <span className="text-white text-xl md:text-3xl font-bold">{Math.abs(wind.x).toFixed(1)}</span>
           </div>
-          <div className="text-white text-4xl font-light">
+          <div className="text-white text-2xl md:text-4xl font-light">
             {wind.x > 0 ? '→' : wind.x < 0 ? '←' : '•'}
           </div>
         </div>
 
         <button 
           onClick={handleExit}
-          className="pointer-events-auto bg-white/10 hover:bg-red-500/80 backdrop-blur text-white px-5 py-3 rounded-xl transition-all font-bold border border-white/20 shadow-lg active:scale-95"
+          className="pointer-events-auto bg-white/10 hover:bg-red-500/80 backdrop-blur text-white px-3 py-2 md:px-5 md:py-3 rounded-xl transition-all font-bold border border-white/20 shadow-lg active:scale-95 text-sm md:text-base"
         >
           Exit
         </button>
       </div>
 
       {/* Target PiP (Picture-in-Picture) */}
-      <div className="absolute bottom-6 left-6 flex flex-col items-start pointer-events-none">
-        <div className="bg-black/60 backdrop-blur-md p-4 rounded-xl border border-white/10 shadow-2xl">
-          <p className="text-white/60 text-xs font-bold tracking-widest uppercase mb-2">Target Camera</p>
-          <div className="relative w-40 h-40 rounded-full overflow-hidden shadow-inner">
+      <div className="absolute bottom-24 left-4 md:bottom-6 md:left-6 flex flex-col items-start pointer-events-none">
+        <div className="bg-black/60 backdrop-blur-md p-2 md:p-4 rounded-xl border border-white/10 shadow-2xl">
+          <p className="text-white/60 text-[10px] md:text-xs font-bold tracking-widest uppercase mb-2">Target Camera</p>
+          <div className="relative w-24 h-24 md:w-40 md:h-40 rounded-full overflow-hidden shadow-inner">
             {/* Target Rings */}
             <div className="absolute inset-0 rounded-full bg-white border-2 border-black/80 shadow-inner">
               <div className="absolute inset-4 rounded-full bg-black border border-black/20">
@@ -292,6 +301,12 @@ function PlayGame() {
           </div>
         </div>
       )}
+
+      {/* Virtual Joystick for Mobile */}
+      <div className="absolute bottom-6 left-6 md:hidden z-20">
+        <VirtualJoystick onMove={handleJoystickMove} />
+      </div>
+
     </div>
   );
 }

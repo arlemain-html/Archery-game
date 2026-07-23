@@ -49,6 +49,10 @@
   body {
     @apply bg-background text-foreground antialiased selection:bg-primary/30;
   }
+  canvas {
+    touch-action: none;
+    outline: none;
+  }
 }
 
 /* Glassmorphism Utilities */
