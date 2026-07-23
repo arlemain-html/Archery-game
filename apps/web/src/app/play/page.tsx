@@ -11,7 +11,7 @@ import { useQueryClient } from '@tanstack/react-query';
 
 const apiClient = createApiClient(process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001');
 
-export default function PlayPage() {
+function PlayGame() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const mode = searchParams.get('mode') || 'practice';
@@ -293,5 +293,13 @@ export default function PlayPage() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function PlayPage() {
+  return (
+    <React.Suspense fallback={<div className="min-h-screen bg-gray-900 flex items-center justify-center text-white font-bold tracking-widest">LOADING...</div>}>
+      <PlayGame />
+    </React.Suspense>
   );
 }
