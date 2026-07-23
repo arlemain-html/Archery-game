@@ -162,13 +162,13 @@ function PlayGame() {
   }, []);
 
   const handleExit = () => {
-    gameBridge.current?.cleanup();
+    gameBridge.cleanup();
     router.push('/home');
   };
 
   const handleJoystickMove = (x: number, y: number) => {
-    if (gameBridge.current?.gameEngine?.inputManager) {
-      gameBridge.current.gameEngine.inputManager.setJoystickDirection(x, y);
+    if (gameBridge.gameEngine?.inputManager) {
+      gameBridge.gameEngine.inputManager.setJoystickDirection(x, y);
     }
   };
 
