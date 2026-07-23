@@ -24,7 +24,6 @@ export function useTransaction() {
       if (optimisticUpdate) optimisticUpdate();
 
       // Submit transaction
-      // @ts-expect-error - Bypass wagmi core version mismatch
       const hash = await writeContract(config, contractConfig);
       
       updateTransaction(txId, { status: 'Submitted', hash });
@@ -33,7 +32,6 @@ export function useTransaction() {
       updateTransaction(txId, { status: 'Waiting Confirmation' });
 
       // Wait for mining
-      // @ts-expect-error - wagmi config type mismatch
       const receipt = await waitForTransactionReceipt(config, { hash });
       
       if (receipt.status === 'success') {

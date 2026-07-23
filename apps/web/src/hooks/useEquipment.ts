@@ -77,7 +77,7 @@ export function useEquipment() {
   const equipMutation = useMutation({
     mutationFn: async ({ category, itemId, modelUrl }: { category: string, itemId: string, modelUrl: string }) => {
       // In a real app, this updates Postgres
-      gameBridge.emit('EquipmentChanged', { playerId: 'local', category, itemId, url: modelUrl });
+      gameBridge.equipItem(category, itemId);
       return { success: true };
     },
     onMutate: async ({ category, itemId }) => {
