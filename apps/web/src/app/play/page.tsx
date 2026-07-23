@@ -22,7 +22,7 @@ function PlayGame() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const engineRef = useRef<GameEngine | null>(null);
   
-  const { score, resetGame } = useGameStore();
+  const { score, windDirection, windSpeed, updateScore, updateWind, resetGame } = useGameStore();
   
   const [wind, setWind] = useState({ x: 0, z: 0 });
   const [charge, setCharge] = useState(0);
@@ -162,13 +162,13 @@ function PlayGame() {
   }, []);
 
   const handleExit = () => {
-    gameBridge.cleanup();
+    resetGame();
     router.push('/home');
   };
 
   const handleJoystickMove = (x: number, y: number) => {
-    if (gameBridge.gameEngine?.inputManager) {
-      gameBridge.gameEngine.inputManager.setJoystickDirection(x, y);
+    if (engineRef.current?.inputManager) {
+      engineRef.current.inputManager.setJoystickDirection(x, y);
     }
   };
 
