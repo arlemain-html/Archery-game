@@ -9,6 +9,9 @@ const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit" });
 export const metadata: Metadata = {
   title: "ArcheryFi",
   description: "Next-gen Web3 Archery Game",
+  other: {
+    "base:app_id": "6a620a2f078f6baf9ef304a9"
+  }
 };
 
 export default function RootLayout({
