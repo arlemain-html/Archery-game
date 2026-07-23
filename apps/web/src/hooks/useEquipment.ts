@@ -29,6 +29,7 @@ export function useEquipment() {
 
   // Read NFT Balances directly from Blockchain
   const { data: balances, isLoading: isBalancesLoading } = useReadContracts({
+    // @ts-expect-error - wagmi abi type mismatch
     contracts: SHOP_ITEMS.map((item) => ({
       address: contractAddresses.base_mainnet.ArcheryItems1155 as `0x${string}`,
       abi: abis.ArcheryItems1155,
