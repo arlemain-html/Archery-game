@@ -81,7 +81,7 @@ export default function PlayPage() {
         // Invalidate profile query to update dashboard stats (ELO, Total Matches, etc.)
         queryClient.invalidateQueries({ queryKey: ['profile'] });
         
-        if (engineRef.current) engineRef.current.stop(); // Stop game loop
+        if (engineRef.current) engineRef.current.pause(); // Stop game loop
       } catch (e) {
         console.error('Failed to submit match', e);
       }
