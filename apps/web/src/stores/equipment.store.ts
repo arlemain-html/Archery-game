@@ -6,6 +6,7 @@ export interface OwnedItem {
   name: string;
   rarity: string;
   modelUrl: string;
+  thumbnailUrl?: string;
 }
 
 export interface Loadout {
