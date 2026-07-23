@@ -16,6 +16,10 @@ export class SceneManager {
     this.scenes.set(scene.name, scene);
   }
 
+  public getActiveScene(): BaseScene | null {
+    return this.activeScene;
+  }
+
   public async switch(name: string, data?: any): Promise<void> {
     if (this.isTransitioning) {
       console.warn('Scene transition already in progress');

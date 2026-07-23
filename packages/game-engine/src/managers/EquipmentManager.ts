@@ -99,7 +99,7 @@ export class EquipmentManager {
   private attachToBone(mesh: THREE.Group, boneName: string) {
     if (!this.playerRoot) {
       // If there's no player root (e.g. Preview Scene), we just add it to the scene
-      const scene = this.engine.sceneManager.getCurrentScene();
+      const scene = this.engine.sceneManager.getActiveScene();
       if (scene) {
         scene.getScene().add(mesh);
       }
